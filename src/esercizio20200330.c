@@ -15,8 +15,6 @@ unsigned long fibonacci(unsigned int n) {
 	}
 	return c;
 }
-// TODO: metodo di bisezione per trovare threshold dipendente da int.
-// Passare funzione come argomento
 
 unsigned long* fibonacci_array(unsigned int n) {
 	unsigned long *fib = malloc(sizeof(long) * (n + 1));
@@ -72,8 +70,10 @@ unsigned int max_fib = 39;
 
 int main(int argc, char *argv[]) {
 
-// Usando il seguente loop si trova che il massimo valore per cui fibonacci(n) restituisce il valore corretto è, sul mio pc, 94.
-// Si può ottenere lo stesso risultato usando la formula chiusa per la succ. di fibonacci (ottenuta, per Es., con la trasformata Z), trascurando gli infinitesimi a +inf e considerano il fatto che sizeof(unsigned long) = 8 sul mio pc
+
+// 	Usando il seguente loop si trova che il massimo valore per cui fibonacci(n) restituisce
+//	il valore corretto è, sul mio pc, 93.
+
 //	unsigned int n = 3;
 //	unsigned long la = 1, lb = 2;// la = fibonacci(2), lb = fibonacci(3)
 //
@@ -81,7 +81,15 @@ int main(int argc, char *argv[]) {
 //		la = lb;
 //		lb = fibonacci(++n);
 //	}
-//	printf("%u", n);
+//	printf("%u\n", --n);
+
+//	Ci si può avvicinare a questo risultato utilizzando la trasformata Z per trovare una formula chiusa
+//	per l'n-esimo termine della successione. Risulta fibonacci(n) = (phi^n - (1-phi)^n) / sqrt(5), dove phi
+//	è il rapporto aureo, phi approx 1.618. abs(1 - phi) < 1, dunque (1-phi)^n è infinitesimo a +inf.
+//	Trascurandolo nella formula di sopra e considerando che sul mio pc sizeof(unsigned long) = 8 si può
+//	trovare l'n per il quale fibonacci(n) = ULONG_MAX, che risulta essere n approx 93.7. Dunque per
+//	n <= 93 la funzione dovrebbe dare il risultato corretto. In quanto sopra si è fatta un'approssimazione,
+//	è dunque necessario utilizzare il codice di sopra per verificare il risultato ottenuto.
 
 	unsigned long *fibonacci_result = fibonacci_array(max_fib);
 
